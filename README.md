@@ -22,12 +22,13 @@ window['hello'].checkStatus(function (error) {
     }, function (success) {
       console.log("success : " + success);
 });
-```
 
 The Sucess Callback has the value true or false.
 
 true = Found Mock Locations enabled or Mock Location Apps
 false = Mock Location disabled with no apps.
+```
+
 
 **Install iOS or Android platform**
 
