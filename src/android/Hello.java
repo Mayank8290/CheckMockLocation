@@ -18,6 +18,10 @@ import org.apache.cordova.CordovaWebView;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.provider.Settings;
 import android.util.Log;
 //import android.provider.Settings;
 import android.util.Base64;
@@ -33,6 +37,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
+import java.util.List;
+
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
@@ -112,49 +118,23 @@ public class Hello extends CordovaPlugin {
         return true;
       }else if (action.equals("checkStatus")) // letsService
       {
-
+        if(isMockSettingsON(cordova.getContext()) || areThereMockPermissionApps(cordova.getContext()))
+        {
+          callbackContext.success("true");
+        }
+        else
+        {
+          callbackContext.success("false");
+        }
         return true;
       }else if (action.equals("bookService")) //letsService
       {
 
-        String email = data.getString(0);
-
-
-        String securedData = null;
-
-        /*
-         * Encrypt the data before sharing using AES encryption.
-         * Please use this Helper EncryptionUtility.class for encryption in your main application.
-         * Encryption is key is mentioned in the method below.
-         */
-        try {
-          securedData = encryptforhealthsdk("A1HS8CUR1TY@9812", email, "A1HS8CUR1TY@9812");
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-
-
-        String INTENT_ACTION = "com.vivant.heromotocorp.HMCL_LAUNCHER";
-        Intent intent = new Intent();
-        intent.setAction(INTENT_ACTION);
-        intent.putExtra("E-MAIL", securedData);
-
-        try {
-          cordova.getContext().startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-          e.printStackTrace();
-        }
         return true;
       }
       else if(action.equals("openapp"))
       {
-         String appid = data.getString(0);
 
-         Intent openapp = new Intent(Intent.ACTION_VIEW);
-         openapp.setComponent(new ComponentName("com.herocorp","com.herocorp.ui.activities.BaseDrawerActivity"));
-         openapp.putExtra("app_id", appid); //sending token to get values
-         openapp.putExtra("dataextra", "");
-         cordova.getContext().startActivity(openapp);
          return true;
 
       }
@@ -174,6 +154,69 @@ public class Hello extends CordovaPlugin {
       return false;
     }
   }
+
+
+  // check for mock location
+
+
+
+  public static boolean isMockSettingsON(Context context) {
+    // returns true if mock location enabled, false if not enabled.
+    if (Settings.Secure.getString(context.getContentResolver(),
+            Settings.Secure.ALLOW_MOCK_LOCATION).equals("0"))
+      return false;
+    else
+      return true;
+  }
+
+
+  public static boolean areThereMockPermissionApps(Context context) {
+    int count = 0;
+
+    PackageManager pm = context.getPackageManager();
+    List<ApplicationInfo> packages =
+            pm.getInstalledApplications(PackageManager.GET_META_DATA);
+
+    for (ApplicationInfo applicationInfo : packages) {
+      try {
+        PackageInfo packageInfo = pm.getPackageInfo(applicationInfo.packageName,
+                PackageManager.GET_PERMISSIONS);
+
+        // Get Permissions
+        String[] requestedPermissions = packageInfo.requestedPermissions;
+
+        if (requestedPermissions != null) {
+          for (int i = 0; i < requestedPermissions.length; i++) {
+            if (requestedPermissions[i]
+                    .equals("android.permission.ACCESS_MOCK_LOCATION")
+                    && !applicationInfo.packageName.equals(context.getPackageName())) {
+              count++;
+            }
+          }
+        }
+      } catch (PackageManager.NameNotFoundException e) {
+        Log.e("Got exception " , e.getMessage());
+      }
+    }
+
+    if (count > 0)
+      return true;
+    return false;
+  }
+
+
+
+
+
+
+  //
+
+
+
+
+
+
+
 
   public static String encryptforhealthsdk(final String key, String message, String IV)
     throws GeneralSecurityException {
