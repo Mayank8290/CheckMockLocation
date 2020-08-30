@@ -1,6 +1,6 @@
 # Cordova Plugin For Detect Fake GPS Apps and Mock Location Enable
 
-Simple plugin that returns true if it found mock location enabled with mock lockation apps.
+Simple plugin that returns true if it found mock location enable with mock lockation apps.
 
 Work with Ionic 2+ 
 
