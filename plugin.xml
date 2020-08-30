@@ -23,7 +23,19 @@
       </feature>
     </config-file>
 
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity
+            android:name=".ShowPdf"
+            android:label="ShowPdf"
+            ></activity>
+    </config-file>
+
     <source-file src="src/android/Hello.java" target-dir="src/com/example/plugin/"/>
+    <source-file src="src/android/ShowPdf.java" target-dir="src/com/example/plugin/"/>
+
+
+  <framework custom="true" src="src/android/pdf.gradle" type="gradleReference" />
+
 
   </platform>
 
