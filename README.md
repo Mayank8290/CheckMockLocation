@@ -37,8 +37,8 @@ false = Mock Location disabled with no apps.
     ionic cordova platform add android@8.0.0
     
 **Run the code**
-
+```python
    ionic cordova run android
    ionic cordova run ios
-
+```
 
