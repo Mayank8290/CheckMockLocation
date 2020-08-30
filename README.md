@@ -1,46 +1,46 @@
-# Cordova Hello World Plugin
+# Cordova Plugin For Detect Fake GPS Apps and Mock Location Enable
 
-Simple plugin that returns your string prefixed with hello.
+Simple plugin that returns true if it found mock location enabled with mock lockation apps.
 
 Greeting a user with "Hello, world" is something that could be done in JavaScript. This plugin provides a simple example demonstrating how Cordova plugins work.
 
 ## Using
 
-Create a new Cordova Project
+**Create a new Cordova Project**
 
-    $ cordova create hello com.example.helloapp Hello
+    $ ionic cordova start MockLocationDetection
     
-Install the plugin
+**Install the plugin**
 
-    $ cd hello
-    $ cordova plugin add https://github.com/don/cordova-plugin-hello.git
+    $ cd MockLocationDetection
+    $ ionic cordova plugin add https://github.com/Mayank8290/CheckMockLocation.git
     
 
-Edit `www/js/index.js` and add the following code inside `onDeviceReady`
+**How To Use**
 
-```js
-    var success = function(message) {
-        alert(message);
-    }
+window['hello'].checkStatus(function (error) {
 
-    var failure = function() {
-        alert("Error calling Hello Plugin");
-    }
+      console.log("error",error);
 
-    hello.greet("World", success, failure);
+    }, function (success) {
+      console.log("success : " + success);
+
+    });
 ```
+
+The Sucess Callback has the value true or false.
+
+true = Found Mock Locations enabled or Mock Location Apps
+false = Mock Location disabled with no apps.
 
 Install iOS or Android platform
 
-    cordova platform add ios
-    cordova platform add android
+    ionic cordova platform add ios
+    ionic cordova platform add android@8.0.0
     
 Run the code
 
-    cordova run 
+   ionic cordova run android
+   ionic cordova run ios
 
-## More Info
 
-For more information on setting up Cordova see [the documentation](http://cordova.apache.org/docs/en/latest/guide/cli/index.html)
-
-For more info on plugins see the [Plugin Development Guide](http://cordova.apache.org/docs/en/latest/guide/hybrid/plugins/index.html)
