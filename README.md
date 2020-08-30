@@ -5,17 +5,17 @@ Simple plugin that returns true if it found mock location enabled with mock lock
 
 ## Using
 
-##Create a new Cordova Project
+**Create a new Cordova Project**
 
     $ ionic cordova start MockLocationDetection
     
-##Install the plugin
+**Install the plugin**
 
     $ cd MockLocationDetection
     $ ionic cordova plugin add https://github.com/Mayank8290/CheckMockLocation.git
     
 
-##How To Use
+**How To Use**
 ```python
 window['hello'].checkStatus(function (error) {
       console.log("error",error);
