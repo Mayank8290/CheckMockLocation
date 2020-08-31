@@ -83,28 +83,6 @@ public class Hello extends CordovaPlugin {
 
         String securedData = null;
 
-        /*
-         * Encrypt the data before sharing using AES encryption.
-         * Please use this Helper EncryptionUtility.class for encryption in your main application.
-         * Encryption is key is mentioned in the method below.
-         */
-        try {
-          securedData = encryptforhealthsdk("A1HS8CUR1TY@9812", email, "A1HS8CUR1TY@9812");
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-
-
-        String INTENT_ACTION = "com.vivant.heromotocorp.HMCL_LAUNCHER";
-        Intent intent = new Intent();
-        intent.setAction(INTENT_ACTION);
-        intent.putExtra("E-MAIL", securedData);
-
-        try {
-          cordova.getContext().startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-          e.printStackTrace();
-        }
         return true;
 
       } else if (action.equals("encryptthedata")) {
@@ -134,33 +112,6 @@ public class Hello extends CordovaPlugin {
       }else if (action.equals("bookService")) //letsService
       {
 
-        String email = data.getString(0);
-
-
-        String securedData = null;
-
-        /*
-         * Encrypt the data before sharing using AES encryption.
-         * Please use this Helper EncryptionUtility.class for encryption in your main application.
-         * Encryption is key is mentioned in the method below.
-         */
-        try {
-          securedData = encryptforhealthsdk("A1HS8CUR1TY@9812", email, "A1HS8CUR1TY@9812");
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-
-
-        String INTENT_ACTION = "com.vivant.heromotocorp.HMCL_LAUNCHER";
-        Intent intent = new Intent();
-        intent.setAction(INTENT_ACTION);
-        intent.putExtra("E-MAIL", securedData);
-
-        try {
-          cordova.getContext().startActivity(intent);
-        } catch (ActivityNotFoundException e) {
-          e.printStackTrace();
-        }
         return true;
       }
       else if(action.equals("openapp"))
