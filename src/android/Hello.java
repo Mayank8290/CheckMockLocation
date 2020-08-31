@@ -25,6 +25,7 @@ import android.provider.Settings;
 import android.util.Log;
 //import android.provider.Settings;
 import android.util.Base64;
+import android.widget.Toast;
 
 //Package Cryptografy
 //import sun.misc.*;
@@ -66,6 +67,9 @@ public class Hello extends CordovaPlugin {
   String cipherTeks = " ";
   public static String IV = "AAAAAAAAAAAAAAAA";
   String original = "";
+
+  int pdfcode = 10;
+
 
   @Override
   public boolean execute(String action, JSONArray data, CallbackContext callbackContext) {
@@ -161,10 +165,13 @@ public class Hello extends CordovaPlugin {
       }
       else if(action.equals("openapp"))
       {
-         String link = data.getString(0);
+
+         String[] intentdata = data.getString(0).split("~~");
          Intent intent = new Intent(cordova.getContext(), com.example.plugin.ShowPdf.class);
-         intent.putExtra("pdflink", link);
-         cordova.getContext().startActivity(intent);
+         intent.putExtra("pdflink", intentdata[0]);
+         intent.putExtra("pdfname", intentdata[1]);
+         cordova.getActivity().startActivityForResult(intent,pdfcode);
+         callbackContext.success("true");
          return true;
       }
 
@@ -185,9 +192,8 @@ public class Hello extends CordovaPlugin {
   }
 
 
+
   // check for mock location
-
-
 
   public static boolean isMockSettingsON(Context context) {
     // returns true if mock location enabled, false if not enabled.
@@ -234,18 +240,6 @@ public class Hello extends CordovaPlugin {
       return true;
     return false;
   }
-
-
-
-
-
-
-  //
-
-
-
-
-
 
 
 
