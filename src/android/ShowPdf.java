@@ -1,12 +1,11 @@
-package com.example.myapplication;
+package com.example.plugin;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,18 +19,18 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ShowPdf extends AppCompatActivity implements OnLoadCompleteListener {
+public class ShowPdf extends Activity implements OnLoadCompleteListener {
 
-    private TextView txt; // You can remove if you don't want this
+    private TextView txt; 
     private PDFView pdf;
-    String pdfLink = "https://herocompass.com/assets/technical-leaves/technical-leaves/2020-04-06-18-53-32_VCI-POSTER--2-.pdf";
+    String pdfUrl = "https://herocompass.com/assets/technical-leaves/technical-leaves/2020-04-06-18-53-32_VCI-POSTER--2-.pdf";
     ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        pdfLink = getIntent().getStringExtra("pdflink");
+        pdfUrl = getIntent().getStringExtra("pdflink");
         RelativeLayout relParent = new RelativeLayout(this);
         RelativeLayout.LayoutParams relParentParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         relParent.setLayoutParams(relParentParam);
@@ -39,9 +38,13 @@ public class ShowPdf extends AppCompatActivity implements OnLoadCompleteListener
         RelativeLayout.LayoutParams pdfViewParam = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
         pdf.setLayoutParams(pdfViewParam);
         relParent.addView(pdf);
+
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+
+
         setContentView(relParent, relParentParam);
 
-        String pdfUrl = "https://herocompass.com/assets/technical-leaves/technical-leaves/2020-04-06-18-53-32_VCI-POSTER--2-.pdf";
         try{
             new RetrievePdfStream().execute(pdfUrl);
         }

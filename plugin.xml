@@ -24,10 +24,7 @@
     </config-file>
 
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <activity
-            android:name=".ShowPdf"
-            android:label="ShowPdf"
-            ></activity>
+            <activity android:label="View PDF" android:name="com.example.plugin.ShowPdf" />
     </config-file>
 
     <source-file src="src/android/Hello.java" target-dir="src/com/example/plugin/"/>

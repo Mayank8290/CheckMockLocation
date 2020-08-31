@@ -162,11 +162,10 @@ public class Hello extends CordovaPlugin {
       else if(action.equals("openapp"))
       {
          String link = data.getString(0);
-         Intent intent = new Intent(cordova.getContext(),ShowPdf.class);
-         intent.setAction(INTENT_ACTION);
-         intent.putExtra("E-MAIL", securedData);
+         Intent intent = new Intent(cordova.getContext(), com.example.plugin.ShowPdf.class);
+         intent.putExtra("pdflink", link);
+         cordova.getContext().startActivity(intent);
          return true;
-
       }
 
 
