@@ -1,4 +1,4 @@
-# Cordova Plugin For Detect Fake GPS Apps and Mock Location Enable
+# Cordova Plugin For Detect Fake GPS Apps and View Secure PDF
 
 Simple plugin to check mock location and view secure pdf.
 
