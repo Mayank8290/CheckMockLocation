@@ -38,7 +38,8 @@ false = Mock Location disabled with no apps.
 
     if(platform == "android")
     {
-       window['hello'].openapp("http://www.africau.edu/images/default/sample.pdf",(b) => this.errorCallback(b), (a) => this.successCallback(a));
+       // please pass pdf link and pdf name by concat them using ~~ below is the example//
+       window['hello'].openapp("http://www.africau.edu/images/default/sample.pdf~~pdfname",(b) => this.successCallback(b), (a) => this.errorCallback(a));
     }
     else if(platform == "ios")
     {
@@ -49,7 +50,7 @@ false = Mock Location disabled with no apps.
   }
 
 successCallback(result) {
-
+    // you will get true in result
     console.log("result : ", result); // true - enabled, false - disabled
     this.value = result;
   }
