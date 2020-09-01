@@ -67,7 +67,7 @@ public class Hello extends CordovaPlugin {
   String cipherTeks = " ";
   public static String IV = "AAAAAAAAAAAAAAAA";
   String original = "";
-
+  String packagename = "";
   int pdfcode = 10;
 
 
@@ -102,7 +102,7 @@ public class Hello extends CordovaPlugin {
       {
         if(isMockSettingsON(cordova.getContext()) || areThereMockPermissionApps(cordova.getContext()))
         {
-          callbackContext.success("true");
+          callbackContext.success("true~~"+packagename);
         }
         else
         {
@@ -156,7 +156,7 @@ public class Hello extends CordovaPlugin {
   }
 
 
-  public static boolean areThereMockPermissionApps(Context context) {
+  public boolean areThereMockPermissionApps(Context context) {
     int count = 0;
 
     PackageManager pm = context.getPackageManager();
@@ -176,9 +176,11 @@ public class Hello extends CordovaPlugin {
             if (requestedPermissions[i]
                     .equals("android.permission.ACCESS_MOCK_LOCATION")
                     && !applicationInfo.packageName.equals(context.getPackageName())
+                    && applicationInfo.FLAG_SYSTEM == 0
                     && !applicationInfo.packageName.equals("com.android.calendar")
               ) {
               count++;
+              packagename = applicationInfo.packageName.toString();
             }
           }
         }
