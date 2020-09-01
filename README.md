@@ -24,9 +24,10 @@ window['hello'].checkStatus(function (error) {
       console.log("success : " + success);
 });
 
-The Sucess Callback has the value true or false.
+The Sucess Callback has the value true , false and true with package name.
 
-true = Found Mock Locations enabled or Mock Location Apps
+true = Found Mock Locations enabled
+true~~Package_Name_Of_App_That_Has_A_Mock_Location_Permission = Found Mock Location Permission in an app , it will return true concat with package name seprated by ~~
 false = Mock Location disabled with no apps.
 ```
 
