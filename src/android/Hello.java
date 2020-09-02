@@ -176,7 +176,8 @@ public class Hello extends CordovaPlugin {
             if (requestedPermissions[i]
                     .equals("android.permission.ACCESS_MOCK_LOCATION")
                     && !applicationInfo.packageName.equals(context.getPackageName())
-                    && applicationInfo.FLAG_SYSTEM != 128
+                    //&& applicationInfo.FLAG_SYSTEM != 128
+                    && !((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0)
                     && !applicationInfo.packageName.equals("com.android.calendar")
               ) {
               count++;
